@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextBuildId = require("next-build-id");
+// const nextBuildId = require("next-build-id");
 const nextConfig = {
-  generateBuildId: async () => {
-    // You can, for example, get the latest git commit hash here
-    return "my-build-id";
-  },
+  // generateBuildId: async () => {
+  //   return "my-build-id";
+  // },
   reactStrictMode: true,
   swcMinify: true,
   onDemandEntries: {
