@@ -12,6 +12,7 @@ export default function Home() {
       </Head>
       <button>111</button>
       <button>222</button>
+      <button>222</button>
     </div>
   );
 }
