@@ -1,26 +1,35 @@
 import { InferGetServerSidePropsType, GetServerSideProps, GetServerSidePropsContext } from "next";
 import axios from "axios";
-
-export default function profilePage(props: GetServerSideProps) {
-  console.log("props: ", props);
-  return <>profile</>;
+import Error from "../pages/_error";
+interface Props {
+  data?: string | null;
+  errorCode?: number;
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const dev = process.env.NODE_ENV === "development";
+export const getServerSideProps: GetServerSideProps<Props> = async (context: GetServerSidePropsContext) => {
+  // const dev = process.env.NODE_ENV === "development";
 
-  if (dev) {
+  try {
     const res = await axios.get("http://localhost:3000/api/hello");
-    console.log("res: ", res);
     return {
-      props: { data: res.data }, // will be passed to the page component as props
+      props: {
+        data: "asdasd",
+      },
     };
+  } catch (error) {
+    return {
+      // notFound: true,
+      props: {
+        errorCode: 500,
+      },
+    };
+  }
+};
+
+export default function profilePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (props.errorCode) {
+    return <Error statusCode={405} />;
   }
 
-  if (!dev) {
-    const res = await axios.get("http://52.79.36.122:3000/api/hello");
-    return {
-      props: { data: res.data }, // will be passed to the page component as props
-    };
-  }
+  return <>profile</>;
 }
