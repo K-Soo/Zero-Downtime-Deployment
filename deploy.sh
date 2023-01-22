@@ -10,22 +10,23 @@ git pull
 
 npm install || exit
 
+#최소실행 백업폴더 생성
 [ -d $BACKUP_PATH ] || mkdir $BACKUP_PATH
-
+#최소실행 build
 [ ! -d ".next" ] && npm run build:staging
 
-BUILD_DIR=temp npm run build:staging || { echo '\033[31m build failed \033'; exit 1; }
-echo '\033[34m build completed. \033'
+BUILD_DIR=temp npm run build:staging || { echo '\033[31mFAILED - build \033'; exit 1; }
+echo '\033[34mbuild completed. \033'
 
 if [ ! -d "temp" ]; then
-  echo '\033[31m temp error.\033'  
+  echo '\033[31mFAILED - temp\033'  
   exit 1
 fi
 
-mv .next ../front-backup/"$TODAY" || { echo '\033[31m Failed to move file \033'; exit 1; }
+mv .next ../front-backup/"$TODAY" || { echo '\033[31m FAILED -  move file \033'; exit 1; }
 
 mv temp .next
 
 pm2 reload all --update-env
 
-echo '\033[32m **************** deploy success!!! ******************\033'
+echo '\033[32m **************** DEPLOY SUCCESSFULLY ******************\033'

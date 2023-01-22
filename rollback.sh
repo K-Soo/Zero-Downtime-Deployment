@@ -17,4 +17,4 @@ rm -rf ../zerotime/.next
 mv "$FIRST" .next
 mv .next ../zerotime
 
-echo '\033[32m **************** rollback success!!! ******************\033'
+echo '\033[32m **************** ROLL-BACK SUCCESSFULLY ******************\033'
