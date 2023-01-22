@@ -3,7 +3,9 @@
 const nextConfig = {
   //빌드 ID 구성
   generateBuildId: async () => {
-    return "my-build-id";
+    const date = new Date();
+    console.log("date: ", date.toISOString());
+    return date.toISOString();
   },
   //커스텀 빌드 디렉토리 설정
   distDir: process.env.BUILD_DIR || ".next",
