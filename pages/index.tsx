@@ -6,11 +6,12 @@ import Link from "next/link";
 export default function Home() {
   const router = useRouter();
 
-  const NEXT_PUBLIC_TEST = process.env.NEXT_PUBLIC_TEST;
-  console.log("NEXT_PUBLIC_TEST: ", NEXT_PUBLIC_TEST);
-
-  const NEXT_PUBLIC_PORT = process.env.NEXT_PUBLIC_PORT;
-  console.log("NEXT_PUBLIC_PORT: ", NEXT_PUBLIC_PORT);
+  const NEXT_PUBLIC_TEXT = process.env.NEXT_PUBLIC_TEXT;
+  console.log("NEXT_PUBLIC_TEXT: ", NEXT_PUBLIC_TEXT);
+  const APP_ENV = process.env.APP_ENV;
+  const NODE_ENV = process.env.NODE_ENV;
+  console.log("NODE_ENV: ", NODE_ENV);
+  console.log("APP_ENV: ", APP_ENV);
 
   return (
     <div>
@@ -20,9 +21,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>첫번쨰다</div>
+      {/* <div>{APP_ENV}</div> */}
+      {/* <div>{NODE_ENV}</div> */}
+      {/* <div>{APP_ENV}</div> */}
+      <div>{NEXT_PUBLIC_TEXT}</div>
 
       <button onClick={() => router.push("/profile")}>프로필</button>
       <button onClick={() => router.push("/todo")}>투두리스트</button>
+
       <li>
         <Link href="/static-props">
           <>getStatic-props 페이지</>

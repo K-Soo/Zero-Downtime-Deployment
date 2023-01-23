@@ -2,12 +2,6 @@
 const nextBuildId = require("next-build-id");
 const nextConfig = {
   //빌드 ID 구성
-  // generateBuildId: async () => {
-
-  //   const date = new Date();
-  //   console.log("date: ", date.toISOString());
-  //   return date.toISOString();
-  // },
   generateBuildId: () => nextBuildId({ dir: __dirname, describe: true }),
   //커스텀 빌드 디렉토리 설정
   distDir: process.env.BUILD_DIR || ".next",

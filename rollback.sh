@@ -8,7 +8,8 @@ SHELL_PATH=`pwd -P`
 cd ${SHELL_PATH%/*}/front-backup
 
 if [ -z "$(ls -A .)" ]; then
-  { echo '\033[31mempty directory \033'; exit; }
+  echo "${RED}empty directory \033";
+  exit;
 fi
 
 FIRST=$(ls -t | head -n 1)
@@ -17,4 +18,8 @@ rm -rf ../zerotime/.next
 mv "$FIRST" .next
 mv .next ../zerotime
 
-echo '\033[32m **************** ROLL-BACK SUCCESSFULLY ******************\033'
+echo ""
+echo "${RIGHT_GREEN}#################################################################"
+echo "${RIGHT_GREEN}#                     ROLL-BACK SUCCESSFULLY                    #"
+echo "${RIGHT_GREEN}#################################################################${NC}"
+echo ""

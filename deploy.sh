@@ -15,18 +15,29 @@ npm install || exit
 #최소실행 build
 [ ! -d ".next" ] && npm run build:staging
 
-BUILD_DIR=temp npm run build:staging || { echo '\033[31mFAILED - build \033'; exit 1; }
-echo '\033[34mbuild completed. \033'
+if [ $MODE == 'prod' ]; then
+  BUILD_DIR=temp npm run build:prod || echo '\033[31mFAILED - build \033'
+elif [ $MODE == 'staging' ]; then
+  BUILD_DIR=temp npm run build:staging || echo '\033[31mFAILED - build \033'
+else  
+  echo "${RED}FAILED - build";
+  exit 1
+fi
+echo "${BLUE}build completed. ${NC}"
 
 if [ ! -d "temp" ]; then
-  echo '\033[31mFAILED - temp\033'  
+  echo "${RED}FAILED - Temp directory does not exist"
   exit 1
 fi
 
-mv .next ../front-backup/"$TODAY" || { echo '\033[31m FAILED -  move file \033'; exit 1; }
+mv .next ../front-backup/"$TODAY" || { echo "${RED} FAILED -  move file"; exit 1; }
 
 mv temp .next
 
 pm2 reload all --update-env
 
-echo '\033[32m **************** DEPLOY SUCCESSFULLY ******************\033'
+echo ""
+echo "${RIGHT_GREEN}#################################################################"
+echo "${RIGHT_GREEN}#                      DEPLOY SUCCESSFULLY                      #"
+echo "${RIGHT_GREEN}#################################################################${NC}"
+echo ""
